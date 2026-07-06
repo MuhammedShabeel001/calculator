@@ -1,0 +1,186 @@
+/* Age Form */
+.age-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.date-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+input[type="date"] {
+    width: 100%;
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    color: var(--text-primary);
+    padding: 16px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.2s ease;
+    color-scheme: dark; /* Adapts native date picker to dark mode */
+}
+
+[data-theme="light"] input[type="date"] {
+    color-scheme: light;
+}
+
+input[type="date"]:focus {
+    border-color: var(--accent-color);
+}
+
+input[type="date"].invalid {
+    border-color: var(--error-color);
+}
+
+.validation-message {
+    color: var(--error-color);
+    font-size: 12px;
+    min-height: 18px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.validation-message.show {
+    opacity: 1;
+}
+
+.age-actions {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.age-actions .btn {
+    height: 52px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 12px;
+}
+
+.age-actions #age-reset {
+    background-color: transparent;
+    border: 1px solid var(--btn-border);
+    color: var(--text-secondary);
+}
+
+.age-actions #age-reset:hover {
+    background-color: var(--btn-bg);
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.age-actions #age-calculate {
+    box-shadow: none;
+    letter-spacing: 0.5px;
+}
+
+.age-actions #age-calculate:hover {
+    box-shadow: none;
+}
+
+/* Result Container */
+.age-result-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+    border-top: 1px solid var(--calc-border);
+    padding-top: 20px;
+}
+
+.age-result-container.hidden {
+    display: none;
+}
+
+.age-main-result, .age-stats {
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.age-main-result h4, .age-stats h4 {
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.age-values {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex-wrap: wrap;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.age-num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.age-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-right: 8px;
+}
+
+.birthday-status {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent-color);
+    padding: 12px;
+    background-color: rgba(229, 57, 53, 0.1);
+    border-radius: 12px;
+    animation: pulseBg 2s infinite alternate;
+}
+
+@keyframes pulseBg {
+    from { background-color: rgba(229, 57, 53, 0.05); }
+    to { background-color: rgba(229, 57, 53, 0.15); }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+}

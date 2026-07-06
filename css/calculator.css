@@ -1,0 +1,203 @@
+/* Screen Area */
+.calc-screen {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px 4px 10px;
+    min-height: 110px;
+    word-wrap: break-word;
+    word-break: break-all;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.calc-screen:hover .copy-btn {
+    opacity: 1;
+}
+
+.status-indicators {
+    position: absolute;
+    top: 0;
+    left: 4px;
+    display: flex;
+    gap: 8px;
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    color: var(--text-secondary);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.copy-btn:hover {
+    background: var(--btn-hover);
+    color: var(--text-primary);
+}
+
+.calc-history-expr {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    min-height: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+    transition: opacity var(--transition-speed);
+}
+
+.calc-current {
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    transition: font-size 0.3s cubic-bezier(0.16, 1, 0.3, 1), color var(--transition-speed) ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: right center;
+}
+
+.calc-current.pop {
+    transform: scale(1.05);
+}
+
+.calc-current.error {
+    color: var(--error-color);
+    font-size: 1.5rem;
+}
+
+/* Keypad Area */
+.calc-keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* History Panel */
+.history-panel {
+    background-color: var(--history-bg);
+    border: 1px solid var(--calc-border);
+    border-radius: var(--border-radius);
+    width: 280px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin 0.4s ease;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.history-panel.hidden {
+    width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    opacity: 0;
+    border-width: 0;
+    margin-left: -20px;
+    pointer-events: none;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--calc-border);
+}
+
+.history-header h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.history-clear-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.history-clear-btn:hover {
+    color: var(--accent-color);
+}
+
+.history-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 4px;
+}
+
+/* Custom Scrollbar */
+.history-list::-webkit-scrollbar {
+    width: 4px;
+}
+.history-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.history-list::-webkit-scrollbar-thumb {
+    background: var(--calc-border);
+    border-radius: 4px;
+}
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+.history-empty {
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.history-item {
+    background: var(--btn-bg);
+    border: 1px solid transparent;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: right;
+    transition: all 0.2s ease;
+    animation: slideDownItem 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.history-item:hover {
+    background: var(--btn-hover);
+    border-color: var(--calc-border);
+    transform: translateY(-2px);
+}
+
+.hist-expr {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.hist-result {
+    font-size: 16px;
+    color: var(--text-primary);
+    font-weight: 500;
+}

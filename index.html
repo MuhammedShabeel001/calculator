@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Modern Calculator</title>
-    <meta name="description" content="A premium calculator web application.">
+    <title>Kalculator</title>
+    <link rel="icon" href="Calculator.png" type="image/png">
+    <meta name="description" content="A premium calculator web application with basic and age calculation modes.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4">
+    
+    <!-- CSS Architecture -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/calculator.css">
+    <link rel="stylesheet" href="css/age-calculator.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
     <main class="app-container">
         
+        <!-- Global Navigation -->
+        <div class="tabs-container global-tabs" role="tablist">
+            <div class="tab-indicator" id="tab-indicator"></div>
+            <button class="tab-btn active" id="tab-basic" role="tab" aria-selected="true" aria-controls="panel-basic">Basic</button>
+            <button class="tab-btn" id="tab-age" role="tab" aria-selected="false" aria-controls="panel-age">Age</button>
+        </div>
+
         <div class="calculator-wrapper">
-            <section class="calculator" aria-label="Calculator"> 
+            <!-- Main Calculator Card -->
+            <section class="calculator-card" aria-label="Calculator Tool"> 
                 
                 <!-- App Controls -->
-                <header class="settings-bar">
-                    <button class="settings-btn" id="toggle-history" aria-label="Toggle History" title="History">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
-                    </button>
+                <header class="settings-bar" style="justify-content: flex-end;">
                     
                     <div class="settings-toggles">
+                        <button class="settings-btn" id="toggle-history" aria-label="Toggle History" title="History">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+                        </button>
                         <button class="settings-btn" id="toggle-format" aria-label="Toggle Number Format" title="Number Formatting: ON">
                             <span class="format-icon-text">1,0</span>
                         </button>
@@ -37,48 +55,108 @@
                     </div>
                 </header>
 
-                <!-- Screen Area -->
-                <div class="calc-screen" id="calc-screen">
-                    <div class="status-indicators" id="status-indicators"></div>
-                    
-                    <button class="copy-btn" id="copy-btn" aria-label="Copy result" title="Copy to clipboard">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    </button>
+                <div class="view-container">
+                    <!-- Basic Calculator View -->
+                    <div class="view-panel active" id="panel-basic" role="tabpanel" aria-labelledby="tab-basic">
+                        <!-- Screen Area -->
+                        <div class="calc-screen" id="calc-screen">
+                            <div class="status-indicators" id="status-indicators"></div>
+                            
+                            <button class="copy-btn" id="copy-btn" aria-label="Copy result" title="Copy to clipboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            </button>
 
-                    <div class="calc-history-expr" id="calc-history-expr" aria-hidden="true"></div>
-                    <div class="calc-current" id="calc-current" aria-live="polite">0</div>
-                </div>
-                
-                <!-- Keypad Area -->
-                <div class="calc-keypad">
-                    <button class="btn btn-action" data-action="clear" aria-label="Clear All"><span>AC</span></button>
-                    <button class="btn btn-action" data-action="toggle-sign" aria-label="Toggle Sign"><span>±</span></button>
-                    <button class="btn btn-action" data-action="percentage" aria-label="Percentage"><span>%</span></button>
-                    <button class="btn btn-operator" data-action="operator" data-value="÷" aria-label="Divide"><span>÷</span></button>
-                    
-                    <button class="btn btn-number" data-value="7"><span>7</span></button>
-                    <button class="btn btn-number" data-value="8"><span>8</span></button>
-                    <button class="btn btn-number" data-value="9"><span>9</span></button>
-                    <button class="btn btn-operator" data-action="operator" data-value="×" aria-label="Multiply"><span>×</span></button>
-                    
-                    <button class="btn btn-number" data-value="4"><span>4</span></button>
-                    <button class="btn btn-number" data-value="5"><span>5</span></button>
-                    <button class="btn btn-number" data-value="6"><span>6</span></button>
-                    <button class="btn btn-operator" data-action="operator" data-value="−" aria-label="Subtract"><span>−</span></button>
-                    
-                    <button class="btn btn-number" data-value="1"><span>1</span></button>
-                    <button class="btn btn-number" data-value="2"><span>2</span></button>
-                    <button class="btn btn-number" data-value="3"><span>3</span></button>
-                    <button class="btn btn-operator" data-action="operator" data-value="+" aria-label="Add"><span>+</span></button>
-                    
-                    <button class="btn btn-action" data-action="delete" aria-label="Delete"><span>⌫</span></button>
-                    <button class="btn btn-number" data-value="0"><span>0</span></button>
-                    <button class="btn btn-number" data-value="."><span>.</span></button>
-                    <button class="btn btn-equals accent" data-action="equals" aria-label="Equals"><span>=</span></button>
+                            <div class="calc-history-expr" id="calc-history-expr" aria-hidden="true"></div>
+                            <div class="calc-current" id="calc-current" aria-live="polite">0</div>
+                        </div>
+                        
+                        <!-- Keypad Area -->
+                        <div class="calc-keypad">
+                            <button class="btn btn-action" data-action="clear" aria-label="Clear All"><span>AC</span></button>
+                            <button class="btn btn-action" data-action="toggle-sign" aria-label="Toggle Sign"><span>±</span></button>
+                            <button class="btn btn-action" data-action="percentage" aria-label="Percentage"><span>%</span></button>
+                            <button class="btn btn-operator" data-action="operator" data-value="÷" aria-label="Divide"><span>÷</span></button>
+                            
+                            <button class="btn btn-number" data-value="7"><span>7</span></button>
+                            <button class="btn btn-number" data-value="8"><span>8</span></button>
+                            <button class="btn btn-number" data-value="9"><span>9</span></button>
+                            <button class="btn btn-operator" data-action="operator" data-value="×" aria-label="Multiply"><span>×</span></button>
+                            
+                            <button class="btn btn-number" data-value="4"><span>4</span></button>
+                            <button class="btn btn-number" data-value="5"><span>5</span></button>
+                            <button class="btn btn-number" data-value="6"><span>6</span></button>
+                            <button class="btn btn-operator" data-action="operator" data-value="−" aria-label="Subtract"><span>−</span></button>
+                            
+                            <button class="btn btn-number" data-value="1"><span>1</span></button>
+                            <button class="btn btn-number" data-value="2"><span>2</span></button>
+                            <button class="btn btn-number" data-value="3"><span>3</span></button>
+                            <button class="btn btn-operator" data-action="operator" data-value="+" aria-label="Add"><span>+</span></button>
+                            
+                            <button class="btn btn-action" data-action="delete" aria-label="Delete"><span>⌫</span></button>
+                            <button class="btn btn-number" data-value="0"><span>0</span></button>
+                            <button class="btn btn-number" data-value="."><span>.</span></button>
+                            <button class="btn btn-equals accent" data-action="equals" aria-label="Equals"><span>=</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Age Calculator View -->
+                    <div class="view-panel" id="panel-age" role="tabpanel" aria-labelledby="tab-age">
+                        <div class="age-form">
+                            <div class="input-group">
+                                <label for="dob-input">Date of Birth</label>
+                                <div class="date-input-wrapper">
+                                    <input type="date" id="dob-input" aria-label="Date of Birth" required>
+                                </div>
+                                <span class="validation-message" id="dob-error"></span>
+                            </div>
+
+                            <div class="age-actions">
+                                <button class="btn btn-action" id="age-reset" aria-label="Reset Date"><span>Reset</span></button>
+                                <button class="btn btn-equals accent" id="age-calculate" aria-label="Calculate Age"><span>Calculate Age</span></button>
+                            </div>
+                        </div>
+
+                        <div class="age-result-container hidden" id="age-result-container">
+                            <div class="age-main-result">
+                                <h4>Age</h4>
+                                <div class="age-values" id="age-primary-output">
+                                    <span class="age-num" id="age-years">0</span> <span class="age-label">Years</span>
+                                    <span class="age-num" id="age-months">0</span> <span class="age-label">Months</span>
+                                    <span class="age-num" id="age-days">0</span> <span class="age-label">Days</span>
+                                </div>
+                            </div>
+                            
+                            <div class="birthday-status" id="birthday-status">
+                                <!-- e.g. "🎉 Today is your birthday!" -->
+                            </div>
+
+                            <div class="age-stats">
+                                <h4>Statistics</h4>
+                                <div class="stats-grid">
+                                    <div class="stat-box">
+                                        <div class="stat-label">Total Years</div>
+                                        <div class="stat-value" id="stat-years">0</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Total Months</div>
+                                        <div class="stat-value" id="stat-months">0</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Total Weeks</div>
+                                        <div class="stat-value" id="stat-weeks">0</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Total Days</div>
+                                        <div class="stat-value" id="stat-days">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- History Panel -->
+            <!-- History Panel (Basic Calculator only) -->
             <aside class="history-panel" id="history-panel">
                 <header class="history-header">
                     <h3>History</h3>
@@ -93,8 +171,10 @@
         </div>
 
         <!-- Toast Notification -->
-        <div class="toast" id="toast">Copied to clipboard</div>
+        <div class="toast" id="toast"></div>
     </main>
-    <script src="script.js?v=4"></script>
+    
+    <!-- ES6 Module Entry Point -->
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

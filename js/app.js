@@ -4,6 +4,7 @@ import { TabManager } from './ui/tabs.js';
 import { HistoryManager } from './basic/history.js';
 import { BasicCalculator } from './basic/calculator.js';
 import { AgeCalculator } from './age/ageCalculator.js';
+import { TipCalculator } from './tip/tipCalculator.js';
 
 // Sound Manager class definition inside app.js or separate file. 
 // Given the simplicity, we'll implement it here.
@@ -57,4 +58,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Calculators
     const basicCalc = new BasicCalculator(settingsManager, historyManager);
     const ageCalc = new AgeCalculator(soundManager);
+    const tipCalc = new TipCalculator(settingsManager);
 });

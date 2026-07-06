@@ -10,7 +10,8 @@
 
 /* Segmented Control / Tabs */
 .tabs-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     position: relative;
     background-color: var(--btn-bg);
     border: 1px solid var(--btn-border);
@@ -27,6 +28,7 @@
 }
 
 .tab-btn {
+    text-align: center;
     background: transparent;
     border: none;
     color: var(--text-secondary);
@@ -60,7 +62,7 @@
     top: 4px;
     bottom: 4px;
     left: 4px;
-    width: calc(50% - 4px);
+    width: calc((100% - 8px) / 3);
     background-color: var(--accent-color);
     border-radius: 16px;
     z-index: 1;
@@ -71,7 +73,7 @@
     top: 6px;
     bottom: 6px;
     left: 6px;
-    width: calc(50% - 6px);
+    width: calc((100% - 12px) / 3);
     border-radius: 20px;
 }
 

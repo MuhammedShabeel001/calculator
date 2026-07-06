@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/calculator.css">
     <link rel="stylesheet" href="css/age-calculator.css">
+    <link rel="stylesheet" href="css/tip-calculator.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -28,6 +29,7 @@
             <div class="tab-indicator" id="tab-indicator"></div>
             <button class="tab-btn active" id="tab-basic" role="tab" aria-selected="true" aria-controls="panel-basic">Basic</button>
             <button class="tab-btn" id="tab-age" role="tab" aria-selected="false" aria-controls="panel-age">Age</button>
+            <button class="tab-btn" id="tab-tip" role="tab" aria-selected="false" aria-controls="panel-tip">Tip</button>
         </div>
 
         <div class="calculator-wrapper">
@@ -148,6 +150,75 @@
                                     <div class="stat-box">
                                         <div class="stat-label">Total Days</div>
                                         <div class="stat-value" id="stat-days">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tip Calculator View -->
+                    <div class="view-panel" id="panel-tip" role="tabpanel" aria-labelledby="tab-tip">
+                        <div class="tip-form">
+                            <div class="input-group">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <label for="bill-input">Bill Amount</label>
+                                    <button class="settings-btn" id="tip-reset" aria-label="Reset Calculator" title="Reset" style="width: 24px; height: 24px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                                    </button>
+                                </div>
+                                <div class="bill-input-wrapper">
+                                    <span class="currency-symbol">₹</span>
+                                    <input type="text" inputmode="decimal" id="bill-input" aria-label="Bill Amount" placeholder="0.00">
+                                </div>
+                                <span class="validation-message" id="bill-error"></span>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Tip Percentage (<span id="tip-display">10</span>%)</label>
+                                <div class="quick-tips" id="quick-tips">
+                                    <button class="tip-chip" data-tip="5">5%</button>
+                                    <button class="tip-chip active" data-tip="10">10%</button>
+                                    <button class="tip-chip" data-tip="15">15%</button>
+                                    <button class="tip-chip" data-tip="18">18%</button>
+                                    <button class="tip-chip" data-tip="20">20%</button>
+                                    <button class="tip-chip" data-tip="25">25%</button>
+                                </div>
+                                <input type="range" id="tip-slider" min="0" max="100" value="10" aria-label="Tip Percentage">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="people-input">Number of People</label>
+                                <div class="stepper-wrapper">
+                                    <button class="stepper-btn" id="people-minus" aria-label="Decrease people">−</button>
+                                    <input type="number" id="people-input" aria-label="Number of People" value="1" min="1" step="1">
+                                    <button class="stepper-btn" id="people-plus" aria-label="Increase people">+</button>
+                                </div>
+                                <span class="validation-message" id="people-error"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="tip-result-container hidden" id="tip-result-container">
+                            <div class="tip-main-result">
+                                <h4>Each Person Pays</h4>
+                                <div class="tip-values">
+                                    <span class="tip-num" id="tip-each-pays">₹0.00</span>
+                                </div>
+                            </div>
+                            
+                            <div class="tip-stats">
+                                <div class="stats-grid">
+                                    <div class="stat-box">
+                                        <div class="stat-label">Tip Amount</div>
+                                        <div class="stat-value" id="stat-tip-amount">₹0.00</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Total Bill</div>
+                                        <div class="stat-value" id="stat-total-bill">₹0.00</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Per Person Tip</div>
+                                        <div class="stat-value" id="stat-per-person-tip">₹0.00</div>
                                     </div>
                                 </div>
                             </div>

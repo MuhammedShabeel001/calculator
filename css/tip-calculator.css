@@ -1,0 +1,240 @@
+/* Tip Form */
+.tip-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Hide number spin buttons */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+.tip-form .validation-message {
+    display: none;
+}
+.tip-form .validation-message.show {
+    display: block;
+    margin-top: -6px;
+    margin-bottom: 6px;
+}
+
+.bill-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 12px;
+    padding: 0 16px;
+    transition: all 0.2s ease;
+}
+
+.bill-input-wrapper:focus-within {
+    border-color: var(--accent-color);
+}
+
+.bill-input-wrapper.invalid {
+    border-color: var(--error-color);
+}
+
+.currency-symbol {
+    color: var(--text-secondary);
+    font-size: 18px;
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+#bill-input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: 16px 0;
+    font-family: inherit;
+    font-size: 18px;
+    outline: none;
+}
+
+/* Quick Tips */
+.quick-tips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tip-chip {
+    flex: 1 1 calc(33.333% - 8px);
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    color: var(--text-primary);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.tip-chip:hover {
+    background-color: var(--btn-hover);
+}
+
+.tip-chip.active {
+    background-color: var(--accent-color);
+    color: var(--accent-text);
+    border-color: var(--accent-color);
+}
+
+/* Slider */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--btn-border);
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Stepper */
+.stepper-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.stepper-wrapper.invalid {
+    border-color: var(--error-color);
+}
+
+.stepper-wrapper:focus-within {
+    border-color: var(--accent-color);
+}
+
+.stepper-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.stepper-btn:hover {
+    background-color: var(--btn-hover);
+}
+
+#people-input {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    color: var(--text-primary);
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    outline: none;
+}
+
+/* Actions */
+.tip-actions {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.tip-actions .btn {
+    height: 52px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 12px;
+}
+
+.tip-actions #tip-reset {
+    background-color: transparent;
+    border: 1px solid var(--btn-border);
+    color: var(--text-secondary);
+}
+
+.tip-actions #tip-reset:hover {
+    background-color: var(--btn-bg);
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.tip-actions #tip-calculate {
+    box-shadow: none;
+    letter-spacing: 0.5px;
+}
+
+/* Results Container */
+.tip-result-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+    border-top: 1px solid var(--calc-border);
+    padding-top: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.tip-result-container.hidden {
+    display: none;
+}
+
+.tip-main-result, .tip-stats {
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.tip-main-result h4 {
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.tip-values {
+    display: flex;
+    align-items: baseline;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.tip-num {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}

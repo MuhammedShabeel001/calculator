@@ -1,11 +1,13 @@
-import { DateUtils } from './dateUtils.js';
-import { AgeValidation } from './validation.js';
-import { BirthdayUtils } from './birthday.js';
-import { createRipple } from '../ui/animations.js';
+import { DateUtils } from './dateUtils.js?v=2';
+import { AgeValidation } from './validation.js?v=2';
+import { BirthdayUtils } from './birthday.js?v=2';
+import { createRipple } from '../ui/animations.js?v=2';
 
 export class AgeCalculator {
     constructor(soundManager) {
         this.soundManager = soundManager;
+        this.liveInterval = null;
+        this.liveTimeout = null;
         this.initDOM();
         this.bindEvents();
     }
@@ -29,6 +31,9 @@ export class AgeCalculator {
         this.statMonths = document.getElementById('stat-months');
         this.statWeeks = document.getElementById('stat-weeks');
         this.statDays = document.getElementById('stat-days');
+        this.statHours = document.getElementById('stat-hours');
+        this.statMinutes = document.getElementById('stat-minutes');
+        this.statSeconds = document.getElementById('stat-seconds');
     }
 
     bindEvents() {
@@ -80,7 +85,13 @@ export class AgeCalculator {
         // Get birthday status
         const status = BirthdayUtils.getStatus(dateString);
 
+        this.stopLiveUpdate();
         this.animateResult(age, stats, status);
+        
+        // Start live ticking after animation
+        this.liveTimeout = setTimeout(() => {
+            this.startLiveUpdate(dateString);
+        }, 850);
     }
 
     animateResult(age, stats, status) {
@@ -101,6 +112,9 @@ export class AgeCalculator {
         this.animateValue(this.statMonths, 0, stats.totalMonths, 800);
         this.animateValue(this.statWeeks, 0, stats.totalWeeks, 800);
         this.animateValue(this.statDays, 0, stats.totalDays, 800);
+        this.animateValue(this.statHours, 0, stats.totalHours, 800);
+        this.animateValue(this.statMinutes, 0, stats.totalMinutes, 800);
+        this.animateValue(this.statSeconds, 0, stats.totalSeconds, 800);
         
         this.statusBirthday.textContent = status;
     }
@@ -114,17 +128,45 @@ export class AgeCalculator {
             // easeOutQuart
             const easeProgress = 1 - Math.pow(1 - progress, 4);
             
-            obj.innerHTML = Math.floor(easeProgress * (end - start) + start);
+            const currentVal = Math.floor(easeProgress * (end - start) + start);
+            obj.innerHTML = new Intl.NumberFormat('en-IN').format(currentVal);
             if (progress < 1) {
                 window.requestAnimationFrame(step);
             } else {
-                obj.innerHTML = end;
+                obj.innerHTML = new Intl.NumberFormat('en-IN').format(end);
             }
         };
         window.requestAnimationFrame(step);
     }
 
+    startLiveUpdate(dateString) {
+        this.liveInterval = setInterval(() => {
+            const age = DateUtils.calculateAge(dateString);
+            const stats = DateUtils.getStats(dateString);
+            
+            this.outYears.innerHTML = age.years;
+            this.outMonths.innerHTML = age.months;
+            this.outDays.innerHTML = age.days;
+            
+            this.statYears.innerHTML = new Intl.NumberFormat('en-IN').format(stats.totalYears);
+            this.statMonths.innerHTML = new Intl.NumberFormat('en-IN').format(stats.totalMonths);
+            this.statWeeks.innerHTML = new Intl.NumberFormat('en-IN').format(stats.totalWeeks);
+            this.statDays.innerHTML = new Intl.NumberFormat('en-IN').format(stats.totalDays);
+            this.statHours.innerHTML = new Intl.NumberFormat('en-IN').format(stats.totalHours);
+            this.statMinutes.innerHTML = new Intl.NumberFormat('en-IN').format(stats.totalMinutes);
+            this.statSeconds.innerHTML = new Intl.NumberFormat('en-IN').format(stats.totalSeconds);
+        }, 1000);
+    }
+
+    stopLiveUpdate() {
+        if (this.liveTimeout) clearTimeout(this.liveTimeout);
+        if (this.liveInterval) clearInterval(this.liveInterval);
+        this.liveTimeout = null;
+        this.liveInterval = null;
+    }
+
     reset() {
+        this.stopLiveUpdate();
         this.inputDob.value = '';
         this.clearError();
         this.resultContainer.classList.add('hidden');

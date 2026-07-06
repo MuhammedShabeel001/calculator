@@ -49,11 +49,18 @@ export class DateUtils {
         const age = this.calculateAge(birthDate, targetDate);
         const totalMonths = (age.years * 12) + age.months;
         
+        const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const totalMinutes = Math.floor(diffMs / (1000 * 60));
+        const totalSeconds = Math.floor(diffMs / 1000);
+        
         return {
             totalYears: age.years,
             totalMonths,
             totalWeeks,
-            totalDays
+            totalDays,
+            totalHours,
+            totalMinutes,
+            totalSeconds
         };
     }
 }

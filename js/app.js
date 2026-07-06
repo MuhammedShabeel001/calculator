@@ -1,10 +1,10 @@
 // Entry Point
-import { SettingsManager } from './ui/theme.js';
-import { TabManager } from './ui/tabs.js';
-import { HistoryManager } from './basic/history.js';
-import { BasicCalculator } from './basic/calculator.js';
-import { AgeCalculator } from './age/ageCalculator.js';
-import { TipCalculator } from './tip/tipCalculator.js';
+import { SettingsManager } from './ui/theme.js?v=2';
+import { TabManager } from './ui/tabs.js?v=2';
+import { HistoryManager } from './basic/history.js?v=2';
+import { BasicCalculator } from './basic/calculator.js?v=2';
+import { AgeCalculator } from './age/ageCalculator.js?v=2';
+import { TipCalculator } from './tip/tipCalculator.js?v=2';
 
 // Sound Manager class definition inside app.js or separate file. 
 // Given the simplicity, we'll implement it here.
